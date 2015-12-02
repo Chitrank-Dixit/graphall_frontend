@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css" />
     <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="bower_components/leaflet-draw/dist/leaflet.draw.css" />
     <link rel="stylesheet" href="bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css" />
     <link rel="stylesheet" href="bower_components/morrisjs/morris.css" />
@@ -71,7 +71,7 @@
        ga('send', 'pageview');
     </script>
     <script src='//maps.googleapis.com/maps/api/js?libraries=weather,geometry,visualization,places,drawing&sensor=false&language=en&v=3.17'></script>
-
+    <script type="text/javascript" src="scripts/serverUrl.js"></script>
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -82,7 +82,7 @@
     <!-- build:js(.) scripts/vendor.js -->
 
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -154,7 +154,7 @@
     <script src="bower_components/html.sortable/dist/html.sortable.js"></script>
     <script src="bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.min.js"></script>
     <script src="bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-    <script src="bower_components/jquery.slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="bower_components/jquery.slimscroll/jquery.slimscroll.js"></script>
     <script src="bower_components/jquery.sparkline/index.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/leaflet-draw/dist/leaflet.draw.js"></script>
@@ -265,7 +265,7 @@
     <script src="scripts/controllers/mail-compose.js"></script>
     <script src="scripts/controllers/mail-single.js"></script>
     <script src="scripts/controllers/mail.js"></script>
-    <script src="scripts/controllers/pages-login.js"></script>
+    <script src="scripts/controllers/LoginCtrl.js"></script>
     <script src="scripts/controllers/pages-signup.js"></script>
     <script src="scripts/controllers/pages-forgot-password.js"></script>
     <script src="scripts/controllers/pages-gallery.js"></script>

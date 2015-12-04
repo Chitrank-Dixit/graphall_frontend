@@ -89,6 +89,8 @@ var app = angular
     uiSelectConfig.theme = 'bootstrap';
   }])
 
+
+
   //angular-language
   .config(['$translateProvider', function($translateProvider) {
     $translateProvider.useStaticFilesLoader({

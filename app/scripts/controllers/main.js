@@ -11,7 +11,7 @@ app
   .controller('MainCtrl', function ($scope, $http, $translate) {
 
     $scope.main = {
-      title: 'Minovate',
+      title: 'Graphall',
       settings: {
         navbarHeaderColor: 'scheme-light',
         sidebarColor: 'scheme-light',

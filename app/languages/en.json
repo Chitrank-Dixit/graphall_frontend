@@ -1,6 +1,11 @@
 {
   "Menu": {
     "DASHBOARD": "Dashboard",
+    "SOURCE": "Source",
+    "LIST_SOURCES": "Active Sources",
+    "ADD_SOURCE": "Add Source",
+    "DELETE_SOURCES": "Delete Sources",
+    "UPDATE_SOURCES": "Update Sources",
     "MAIL": "Mail",
     "INBOX": "Inbox",
     "COMPOSE_MAIL": "Compose Mail",

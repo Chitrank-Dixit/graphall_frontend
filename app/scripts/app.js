@@ -127,6 +127,37 @@ var app = angular
         }]
       }
     })
+    // Tracking source
+    .state('app.source', {
+      abstract: true,
+      url: '/source',
+      controller: 'SourceCtrl',
+      templateUrl: 'views/tmpl/source/source.html'
+    })
+    //mail/inbox
+    .state('app.source.sources', {
+      url: '/sources',
+      controller: 'ListSourcesCtrl',
+      templateUrl: 'views/tmpl/source/sources.html'
+    })
+    //mail/compose
+    .state('app.source.add_source', {
+      url: '/add_source',
+      controller: 'AddSourceCtrl',
+      templateUrl: 'views/tmpl/source/add_source.html'
+    })
+      //mail/compose
+      .state('app.source.delete_source', {
+        url: '/delete_sources',
+        controller: 'DeleteSourceCtrl',
+        templateUrl: 'views/tmpl/source/delete_source.html'
+      })
+      //mail/compose
+      .state('app.source.update_source', {
+        url: '/update_source',
+        controller: 'UpdateSourceCtrl',
+        templateUrl: 'views/tmpl/source/update_source.html'
+      })
     //mail
     .state('app.mail', {
       abstract: true,

@@ -17,7 +17,10 @@ app.controller('LoginCtrl', function ($scope, $state, $http) {
             })
                     .success(function(data){
                         console.log(data);
-                    });
+                        $state.go('app.dashboard');
+
+
+              });
         });
 
     }

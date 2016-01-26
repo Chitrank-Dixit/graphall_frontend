@@ -23,6 +23,7 @@ app.controller('SignupCtrl', function ($scope, $state, $http) {
           })
           .success(function(data){
             console.log(data);
+              $state.go('app.dashboard');
           });
         });
     	});

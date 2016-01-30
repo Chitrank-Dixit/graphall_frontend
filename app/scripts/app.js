@@ -132,31 +132,72 @@ var app = angular
       abstract: true,
       url: '/source',
       controller: 'SourceCtrl',
-      templateUrl: 'views/tmpl/source/source.html'
+      templateUrl: 'views/tmpl/source/source.html',
+        resolve: {
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css'
+            ]);
+          }]
+        }
+
     })
     //mail/inbox
-    .state('app.source.sources', {
+    .state('app.sources', {
       url: '/sources',
       controller: 'ListSourcesCtrl',
-      templateUrl: 'views/tmpl/source/sources.html'
+      templateUrl: 'views/tmpl/source/sources.html',
+        resolve: {
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css'
+            ]);
+          }]
+        }
     })
     //mail/compose
-    .state('app.source.add_source', {
+    .state('app.add_source', {
       url: '/add_source',
       controller: 'AddSourceCtrl',
-      templateUrl: 'views/tmpl/source/add_source.html'
+      templateUrl: 'views/tmpl/source/add_source.html',
+        resolve: {
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css'
+            ]);
+          }]
+        }
     })
       //mail/compose
-      .state('app.source.delete_source', {
+      .state('app.delete_source', {
         url: '/delete_sources',
         controller: 'DeleteSourceCtrl',
-        templateUrl: 'views/tmpl/source/delete_source.html'
+        templateUrl: 'views/tmpl/source/delete_source.html',
+        resolve: {
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css'
+            ]);
+          }]
+        }
       })
       //mail/compose
-      .state('app.source.update_source', {
+      .state('app.update_source', {
         url: '/update_source',
         controller: 'UpdateSourceCtrl',
-        templateUrl: 'views/tmpl/source/update_source.html'
+        templateUrl: 'views/tmpl/source/update_source.html',
+        resolve: {
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css'
+            ]);
+          }]
+        }
       })
     //mail
     .state('app.mail', {

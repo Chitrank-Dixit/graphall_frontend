@@ -1,10 +1,191 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="page page-form-validate">
 
-</body>
-</html>
+
+
+
+  <!-- page header -->
+  <div class="pageheader">
+
+    <h2>{{page.title}} <span>// {{page.subtitle}}</span></h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+        </li>
+        <li>
+          <a href="javascript:;">Sources</a>
+        </li>
+        <li>
+          <a ui-sref="app.forms.validate">{{page.title}}</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+  <!-- /page header -->
+
+
+
+
+
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+
+    <!-- row -->
+    <div class="row">
+
+      <div class="col-md-3">
+
+      </div>
+      <!-- col -->
+      <div class="col-md-6">
+
+
+        <form name="userForm" ng-submit="addSource(userForm.$valid)" role="form" novalidate>
+
+          <!-- tile -->
+          <section class="tile" fullscreen="isFullscreen01">
+
+            <!-- tile header -->
+            <div class="tile-header dvd dvd-btm">
+              <h1 class="custom-font"><strong>Add Source</strong></h1>
+              <ul class="controls">
+                <li class="dropdown" dropdown on-toggle="toggled(open)">
+
+                  <a href dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                  <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                    <li>
+                      <a href tile-control-toggle>
+                        <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                        <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href tile-control-refresh ng-click="ajaxFaker()">
+                        <fa name="refresh"></fa> Refresh
+                      </a>
+                    </li>
+                    <li>
+                      <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                        <fa name="expand"></fa> Fullscreen
+                      </a>
+                    </li>
+
+                  </ul>
+
+                </li>
+                <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+              </ul>
+            </div>
+            <!-- /tile header -->
+
+            <!-- tile body -->
+            <div class="tile-body">
+
+              <p class="text-muted">Submit button will be enabled after completing form.</p>
+
+
+              <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine, 'has-success' : userForm.name.$valid && !userForm.name.$pristine}">
+                <label for="name">Name: </label>
+                <input type="text" name="name" id="name" class="form-control" ng-model="source.add.name" ng-minlength="3" ng-maxlength="8" required>
+                <p class="help-block">
+                  <span ng-show="userForm.name.$invalid && !userForm.name.$pristine">Name is required.</span>
+                  <span ng-show="userForm.name.$error.minlength">Name is too short.</span>
+                  <span ng-show="userForm.name.$error.maxlength">Name is too long.</span>
+                </p>
+              </div>
+
+              <div class="form-group" ng-class="{ 'has-error' : userForm.website.$invalid && !userForm.website.$pristine, 'has-success' : userForm.website.$valid && !userForm.website.$pristine}">
+                <label for="website">Website: </label>
+                <input type="url" name="website" id="website" class="form-control" ng-model="source.add.website" required>
+                <p class="help-block">
+                  <span ng-show="userForm.website.$invalid && !userForm.website.$pristine">website is required.</span>
+                  <span ng-show="userForm.website.$error.minlength">website name is too short.</span>
+                  <span ng-show="userForm.website.$error.maxlength">website name is too long.</span>
+                </p>
+              </div>
+
+
+              <div class="form-group" ng-class="{ 'has-error' : userForm.industry_category.$invalid && !userForm.industry_category.$pristine, 'has-success' : userForm.industry_category.$valid && !userForm.industry_category.$pristine}">
+                <label for="industry_category">Industry Category: </label>
+                <select name="industry_category" id="industry_category" class="form-control mb-10 ng-touched ng-dirty ng-valid-parse ng-valid ng-valid-required" ng-model="source.add.industry_category" required="" aria-required="false" aria-invalid="false" style="" ng-options="item.id as item.name for item in industry_category_choices">
+                  <option value="">Select option... </option><option value="foo">Foo </option>
+                  <option value="bar">Bar </option>
+                  <p class="help-block">
+                    <span ng-show="userForm.industry_category.$invalid && !userForm.industry_category.$pristine">industry category is required.</span>
+                    <span ng-show="userForm.industry_category.$error.minlength">industry category is too short.</span>
+                    <span ng-show="userForm.industry_category.$error.maxlength">industry category is too long.</span>
+                  </p>
+                </select>
+              </div>
+
+
+
+
+
+
+              <div class="checkbox" ng-class="{ 'has-error' : userForm.agree.$invalid && !userForm.agree.$pristine, 'has-success' : userForm.agree.$valid && !userForm.agree.$pristine}">
+                <label class="checkbox checkbox-custom">
+                  <input type="checkbox" name="agree" id="agree" ng-model="user.agree" required><i></i> I agree to the <a href class="text-info">Terms of Service</a>
+                </label>
+                <p class="help-block">
+                  <span ng-show="userForm.agree.$invalid && !userForm.agree.$pristine">You must accept Terms of Service.</span>
+                </p>
+              </div>
+
+
+            </div>
+            <!-- /tile body -->
+
+
+            <!-- tile footer -->
+            <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+              <!-- SUBMIT BUTTON -->
+              <button type="submit" class="btn btn-success" ng-disabled="userForm.$invalid">Submit</button>
+            </div>
+            <!-- /tile footer -->
+
+          </section>
+          <!-- /tile -->
+
+
+        </form>
+
+
+
+
+
+
+      </div>
+      <!-- /col -->
+
+      <div class="col-md-3">
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+    <!-- /row -->
+
+
+
+
+
+  </div>
+  <!-- /page content -->
+
+
+
+
+</div>

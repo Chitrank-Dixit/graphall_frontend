@@ -24,6 +24,21 @@ app
     };
 
     $scope.getUsers();
+
+    $scope.logoutUser = function() {
+      console.log("Inside");
+      var authData = $scope.user;
+      $http({
+        method: 'POST',
+        url: 'http://127.0.0.1:8000/api/v1/auth/logout/',
+        data :authData,
+        headers: { "Content-Type": "application/json", "Authorization": "JWT "+data.token }
+      }).success(function(data) {
+        console.log("Logged out successfully");
+
+      });
+    }
+
   })
 
   .controller('StatisticsChartCtrl', function ($scope) {

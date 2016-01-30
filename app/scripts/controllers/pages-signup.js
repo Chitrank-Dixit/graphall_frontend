@@ -1,5 +1,5 @@
 'use strict';
-app.controller('SignupCtrl', function ($scope, $state, $http) {
+app.controller('SignupCtrl', function ($scope, $state, $http, $window) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -15,6 +15,7 @@ app.controller('SignupCtrl', function ($scope, $state, $http) {
           password: data.password
         };
         $http.post('http://127.0.0.1:8000/api-token-auth/', authData).success(function(data){
+          var token = data.token;
           $http({
             method  : 'POST',
             url     : 'http://127.0.0.1:8000/api/v1/auth/login/',
@@ -23,6 +24,8 @@ app.controller('SignupCtrl', function ($scope, $state, $http) {
           })
           .success(function(data){
             console.log(data);
+              var userdata = { "username": data.username, "first_name": data.first_name , "token": token , "last_name": data.last_name , "email": data.email};
+              $window.localStorage.setItem('userdata', JSON.stringify(userdata));
               $state.go('app.dashboard');
           });
         });

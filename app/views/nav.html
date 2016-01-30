@@ -8,12 +8,12 @@
       <ul id="navigation" nav-collapse ripple>
         <li ui-sref-active="active"><a ui-sref="app.dashboard"><fa name="dashboard"></fa> <span>{{ 'Menu.DASHBOARD' | translate }}</span></a></li>
         <li ui-sref-active="active" ng-class="{'open':$state.includes('app.source')}">
-        <a ui-sref="app.source"><fa name="envelope-o"></fa> <span>{{ 'Menu.SOURCE' | translate }}</span> </a>
+        <a><fa name="envelope-o"></fa> <span>{{ 'Menu.SOURCE' | translate }}</span> </a>
         <ul>
-        <li ui-sref-active="active"><a ui-sref="app.source.sources"><fa name="caret-right"></fa> {{ 'Menu.LIST_SOURCES' | translate }}</a></li>
-        <li ui-sref-active="active"><a ui-sref="app.source.sources"><fa name="caret-right"></fa> {{ 'Menu.ADD_SOURCE' | translate }}</a></li>
-        <li ui-sref-active="active"><a ui-sref="app.source.sources"><fa name="caret-right"></fa> {{ 'Menu.DELETE_SOURCES' | translate }}</a></li>
-        <li ui-sref-active="active"><a ui-sref="app.source.sources"><fa name="caret-right"></fa> {{ 'Menu.UPDATE_SOURCES' | translate }}</a></li>
+        <li ui-sref-active="active"><a ui-sref="app.sources"><fa name="caret-right"></fa> {{ 'Menu.LIST_SOURCES' | translate }}</a></li>
+        <li ui-sref-active="active"><a ui-sref="app.add_source"><fa name="caret-right"></fa> {{ 'Menu.ADD_SOURCE' | translate }}</a></li>
+        <li ui-sref-active="active"><a ui-sref="app.delete_source"><fa name="caret-right"></fa> {{ 'Menu.DELETE_SOURCES' | translate }}</a></li>
+        <li ui-sref-active="active"><a ui-sref="app.update_source"><fa name="caret-right"></fa> {{ 'Menu.UPDATE_SOURCES' | translate }}</a></li>
         <!--<li ui-sref-active="active"><a ui-sref="app.mail.compose"><fa name="caret-right"></fa> {{ 'Menu.COMPOSE_MAIL' | translate }}</a></li>-->
         </ul>
         </li>

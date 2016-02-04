@@ -23,8 +23,9 @@
         </a>
       </div>
 
-      <div ng-controller="ListSourcesCtrl" class="page-toolbar">
-        Need to update soon
+      <div class="page-toolbar">
+        <select name="industry_category" id="industry_category" class="form-control mb-10 ng-touched ng-dirty ng-valid-parse ng-valid ng-valid-required" ng-options="item.name for item in source_list" ng-model="source.show.source" aria-required="false" aria-invalid="false" ng-change="filterBySource()">
+        </select>
       </div>
 
     </div>

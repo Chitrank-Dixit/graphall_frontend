@@ -8,7 +8,27 @@
  * Controller of the minovateApp
  */
 app
-  .controller('DashboardCtrl', function($scope,$http, $window){
+  .factory('TrackingData', function($http, $q) {
+
+    return {
+        get_tracking_data: function() {
+          return $http.post('http://127.0.0.1:8000/api-token-refresh/', token).success(function (data) {
+            if (data.token) {
+              $http({
+                method: 'POST',
+                url: 'http://127.0.0.1:8000/get_custom_ranged_tracking_source_data/',
+                data: {"tracking_source_id": $scope.source.show.source},
+                headers: {"Content-Type": "application/json"}  // set the headers so angular passing info as form data (not request payload)
+              }).success(function (data) {
+                return data;
+              });
+            }
+          });
+        }
+      }
+
+  })
+  .controller('DashboardCtrl', function($scope,$http, $window, $state, $timeout){
     $scope.page = {
       title: 'Dashboard',
       subtitle: 'Place subtitle here...'
@@ -57,18 +77,59 @@ app
       }
     });
 
-    var id = 1;
 
-    $scope.filterBySource = function() {
+
+    $scope.filterBySource = function(tracking_id) {
+      var tracking_source_data = {'tracking_source_id': tracking_id};
+      console.log($scope.source.show.source);
       $http.post('http://127.0.0.1:8000/api-token-refresh/', token ).success(function(data) {
         if (data.token) {
           $http({
             method: 'GET',
-            url: 'http://127.0.0.1:8000/api/v1/tracking_source_details/'+id+'/',
-            headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
+            url: 'http://127.0.0.1:8000/api/v1/tracking_data/?tracking_source_id='+$scope.source.show.source,
+            headers: {"Content-Type": "application/json", "Authorization": "JWT "+data.token}  // set the headers so angular passing info as form data (not request payload)
           }).success(function (data) {
-            $scope.tracking_source = data;
-            console.log($scope.tracking_source);
+            $scope.tracking_data = data;
+            console.log($scope.tracking_data);
+            var chrome = 0;
+            var firefox = 0;
+            console.log($scope.tracking_data);
+            $scope.source.views = $scope.tracking_data.page_views;
+            var element;
+            for (element in $scope.tracking_data.web_browser) {
+              console.log(element, $scope.tracking_data.web_browser);
+              if ($scope.tracking_data.web_browser[element] === "1"){
+                chrome = chrome + 1;
+              }
+              else if ($scope.tracking_data.web_browser[element] === "2")
+              {
+                firefox = firefox + 1;
+              }
+            }
+            console.log(chrome, firefox);
+            $scope.donutData = [
+              {label: 'Chrome', value: chrome, color: '#00a3d8'},
+              {label: 'Safari', value: 0, color: '#2fbbe8'},
+              {label: 'Firefox', value: firefox, color: '#72cae7'},
+              {label: 'Opera', value: 0, color: '#d9544f'},
+              {label: 'Internet Explorer', value: 0, color: '#ffc100'},
+              {label: 'Other', value: 0, color: '#1693A5'}
+            ];
+
+            $scope.oneAtATime = true;
+
+            $scope.status = {
+              isFirstOpen: true,
+              tab1: {
+                open: true
+              },
+              tab2: {
+                open: false
+              },
+              tab3: {
+                open: false
+              }
+            };
           });
         }
       });
@@ -201,12 +262,12 @@ app
     };
   })
 
-  .controller('BrowseUsageCtrl', function ($scope) {
+  .controller('BrowseUsageCtrl', function ($scope, TrackingData) {
 
     $scope.donutData = [
-      {label: 'Chrome', value: 25, color: '#00a3d8'},
+      {label: 'Chrome', value: 0, color: '#00a3d8'},
       {label: 'Safari', value: 20, color: '#2fbbe8'},
-      {label: 'Firefox', value: 15, color: '#72cae7'},
+      {label: 'Firefox', value: 0, color: '#72cae7'},
       {label: 'Opera', value: 5, color: '#d9544f'},
       {label: 'Internet Explorer', value: 10, color: '#ffc100'},
       {label: 'Other', value: 25, color: '#1693A5'}
@@ -226,6 +287,50 @@ app
         open: false
       }
     };
+
+    //if ($scope.source.show.source !== none) {
+    //  TrackingData.get_tracking_data($scope.source.show.source).then(function(data) {
+    //    $scope.browser.chrome = 0;
+    //    $scope.browser.firefox = 0;
+    //    console.log(data);
+    //    //var element;
+    //    //for (element in $scope.tracking_data.web_browser) {
+    //    //  if (element === 1){
+    //    //    $scope.browser.chrome = $scope.browser.chrome + element;
+    //    //  }
+    //    //  else if (element === 2)
+    //    //  {
+    //    //    $scope.browser.firefox = $scope.browser.firefox + element;
+    //    //  }
+    //    //}
+    //    $scope.donutData = [
+    //      {label: 'Chrome', value: 0, color: '#00a3d8'},
+    //      {label: 'Safari', value: 20, color: '#2fbbe8'},
+    //      {label: 'Firefox', value: 0, color: '#72cae7'},
+    //      {label: 'Opera', value: 5, color: '#d9544f'},
+    //      {label: 'Internet Explorer', value: 10, color: '#ffc100'},
+    //      {label: 'Other', value: 25, color: '#1693A5'}
+    //    ];
+    //
+    //    $scope.oneAtATime = true;
+    //
+    //    $scope.status = {
+    //      isFirstOpen: true,
+    //      tab1: {
+    //        open: true
+    //      },
+    //      tab2: {
+    //        open: false
+    //      },
+    //      tab3: {
+    //        open: false
+    //      }
+    //    };
+    //
+    //  });
+    //}
+
+
 
   })
 

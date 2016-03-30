@@ -19,7 +19,8 @@ app
         activeColor: 'black-scheme-color',
         headerFixed: true,
         asideFixed: true,
-        rightbarShow: false
+        rightbarShow: false,
+        serverUrl: 'http://52.37.136.11'
       }
     };
 

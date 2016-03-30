@@ -45,11 +45,11 @@ app
         console.log(userdata);
         var token = { 'token': userdata['token']};
         console.log(token);
-        $http.post('http://127.0.0.1:8000/api-token-refresh/', token ).success(function(data){
+        $http.post($scope.main.settings.serverUrl +'/api-token-refresh/', token ).success(function(data){
           if (data.token) {
             $http({
               method: 'POST',
-              url: 'http://127.0.0.1:8000/api/v1/tracking_source/',
+              url: $scope.main.settings.serverUrl +'/api/v1/tracking_source/',
               data: $scope.source.add,  // pass in data as strings
               headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
             })

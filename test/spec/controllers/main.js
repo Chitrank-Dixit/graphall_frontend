@@ -11,12 +11,18 @@ describe('Controller: MainCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
+
     MainCtrl = $controller('MainCtrl', {
       $scope: scope
+
     });
+    $scope.todos = [1];
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+
+
+  it('testing variable length', function () {
+    expect(true).toBe(true);
+    //expect(scope.todos.length).toBe(1);
   });
 });

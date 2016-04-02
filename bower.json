@@ -73,7 +73,10 @@
     "simple-line-icons": "~2.2.1",
     "textAngular": "~1.4.6",
     "weather-icons": "~2.0.10",
-    "dragular": "latest"
+    "dragular": "latest",
+    "angular-route": "~1.5.3",
+    "jquery": "~2.2.2",
+    "angular-mocks": "~1.5.3"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

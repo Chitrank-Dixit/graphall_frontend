@@ -3,5 +3,7 @@ node_js:
   - '0.10'
 before_script:
   - 'npm install -g bower grunt-cli'
+  - 'npm install -g karma-cli'
+  - 'npm install -g phantomjs'
   - 'bower install'
   - 'npm install'

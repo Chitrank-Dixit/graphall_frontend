@@ -10,7 +10,7 @@
     "angular-chosen-localytics": "~1.0.7",
     "angular-cookies": "1.4.6",
     "angular-datatables": "~0.5.0",
-    "d3": "~3.5.6",
+    "d3": "~3.5.16",
     "angular-file-upload": "~2.1.4",
     "angular-flot": "~0.0.13",
     "angular-fontawesome": "~0.4.0",
@@ -73,7 +73,10 @@
     "simple-line-icons": "~2.2.1",
     "textAngular": "~1.4.6",
     "weather-icons": "~2.0.10",
-    "dragular": "latest"
+    "dragular": "latest",
+    "angular-route": "~1.5.3",
+    "jquery": "~2.2.2",
+    "angular-mocks": "~1.5.3"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

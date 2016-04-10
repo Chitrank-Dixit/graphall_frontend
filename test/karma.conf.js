@@ -6,6 +6,7 @@
 module.exports = function(config) {
   'use strict';
 
+  //var urlRoot = '/_karma_/';
   config.set({
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
@@ -18,6 +19,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-animate/angular-animate.js',
@@ -26,16 +28,20 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
-      'app/scripts/**/*.js',
-      'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'app/scripts/app.js',
+      'app/scripts/controllers/main.js',
+      // 'app/scripts/**/*.js',  //this would be done afterwards
+      //'test/mock/**/*.js',
+      // 'test/spec/**/*.js'    //this would be done afterwards
+      'test/spec/controllers/main.js'
     ],
 
     // list of files / patterns to exclude
     exclude: [],
 
     // web server port
-    port: 8080,
+    port: 9999,
+
 
     // Start these browsers, currently available:
     // - Chrome

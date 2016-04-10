@@ -23,6 +23,9 @@ app
       }
     };
 
+    // simple variable to test the karmajs tests
+    $scope.todos = [1];
+
     $scope.ajaxFaker = function(){
       $scope.data=[];
       var url = 'http://www.filltext.com/?rows=10&fname={firstName}&lname={lastName}&delay=5&callback=JSON_CALLBACK';

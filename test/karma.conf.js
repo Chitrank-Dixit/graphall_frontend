@@ -25,7 +25,6 @@ module.exports = function(config) {
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-route/angular-route.js',
-      'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-fontawesome/dist/angular-fontawesome.js',
@@ -42,6 +41,14 @@ module.exports = function(config) {
       'bower_components/angular-ui-select/dist/select.js',
       'bower_components/angular-ui-tree/dist/angular-ui-tree.js',
       'bower_components/textAngular/dist/textAngular.js',
+      'bower_components/textAngular/dist/textAngularSetup.js',
+      'bower_components/textAngular/dist/textAngular-sanitize.js',
+      'bower_components/rangy/rangy-core.js',
+      'bower_components/rangy/rangy-selectionsaverestore.js',
+      'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js',
+      'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
+
+      'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
 
 
       'bower_components/angular-translate/angular-translate.js',

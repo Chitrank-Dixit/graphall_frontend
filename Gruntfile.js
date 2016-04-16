@@ -417,14 +417,19 @@ module.exports = function (grunt) {
       ]
     },
 
-    // Test settings
+
+  // Test settings
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
-        singleRun: true
+        port: 9001,
+        browsers: ['Chrome']
+
       }
     }
   });
+
+  grunt.loadNpmTasks('grunt-karma');
 
   grunt.loadNpmTasks('grunt-ng-annotate');
 

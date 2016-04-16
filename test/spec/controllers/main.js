@@ -9,20 +9,22 @@ describe('Controller: MainCtrl', function () {
     scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, $translate) {
     scope = $rootScope.$new();
 
     MainCtrl = $controller('MainCtrl', {
       $scope: scope
 
     });
-    $scope.todos = [1];
+    //scope.todos = [1];
   }));
 
 
 
   it('testing variable length', function () {
+    var todos = [1];
+    console.log(todos,todos.length);
+    //true === true
     expect(true).toBe(true);
-    //expect(scope.todos.length).toBe(1);
   });
 });

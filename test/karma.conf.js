@@ -47,8 +47,37 @@ module.exports = function(config) {
       'bower_components/rangy/rangy-selectionsaverestore.js',
       'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js',
       'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
-
       'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
+      'bower_components/datatables/media/js/jquery.dataTables.js',
+      'bower_components/angular-datatables/dist/angular-datatables.min.js',
+      'bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js',
+      'bower_components/angular-datatables/dist/plugins/colreorder/angular-datatables.colreorder.min.js',
+      'bower_components/angular-datatables/dist/plugins/colvis/angular-datatables.colvis.min.js',
+      'bower_components/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.min.js',
+      'bower_components/angular-datatables/dist/plugins/scroller/angular-datatables.scroller.min.js',
+      'bower_components/angular-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.min.js',
+      'bower_components/angular-ui-grid/ui-grid.min.js',
+      'bower_components/ng-table/dist/ng-table.min.js',
+      'bower_components/angular-smart-table/dist/smart-table.min.js',
+      'bower_components/angular-flot/angular-flot.js',
+      'bower_components/angular-rickshaw/rickshaw.js',
+      'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.min.js',
+      'bower_components/angular-google-maps/dist/angular-google-maps.js',
+
+      'bower_components/angular-ui-calendar/src/calendar.js',
+      'bower_components/ng-tags-input/ng-tags-input.min.js',
+
+      'bower_components/angular-material/angular-material.min.js',
+      'bower_components/angular-aria/angular-aria.min.js',
+      'bower_components/angular-chosen-localytics/chosen.js',
+      'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
+
+      'bower_components/angular-masonry/angular-masonry.js',
+      'bower_components/angular-ipsum/dist/ipsum.min.js',
+      'bower_components/angular-intro.js/build/angular-intro.min.js',
+      'bower_components/dragular/dist/dragular.min.js',
+
+
 
 
       'bower_components/angular-translate/angular-translate.js',

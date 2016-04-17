@@ -52,13 +52,13 @@ var app = angular
     'angular-flot',
     'angular-rickshaw',
     'easypiechart',
-    //'uiGmapgoogle-maps', // nemloggin
+    'uiGmapgoogle-maps', // nemloggin
     'ui.calendar',
     'ngTagsInput',
     'pascalprecht.translate',
     'ngMaterial',
     'localytics.directives',
-    //'leaflet-directive', //nemloggin
+    'leaflet-directive', //nemloggin
     'wu.masonry',
     'ipsum',
     'angular-intro',

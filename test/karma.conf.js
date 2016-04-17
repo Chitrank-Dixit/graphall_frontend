@@ -63,23 +63,17 @@ module.exports = function(config) {
       'bower_components/angular-rickshaw/rickshaw.js',
       'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.min.js',
       'bower_components/angular-google-maps/dist/angular-google-maps.js',
-
+      'bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
       'bower_components/angular-ui-calendar/src/calendar.js',
       'bower_components/ng-tags-input/ng-tags-input.min.js',
-
       'bower_components/angular-material/angular-material.min.js',
       'bower_components/angular-aria/angular-aria.min.js',
       'bower_components/angular-chosen-localytics/chosen.js',
       'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
-
       'bower_components/angular-masonry/angular-masonry.js',
       'bower_components/angular-ipsum/dist/ipsum.min.js',
       'bower_components/angular-intro.js/build/angular-intro.min.js',
       'bower_components/dragular/dist/dragular.min.js',
-
-
-
-
       'bower_components/angular-translate/angular-translate.js',
       'bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js',
       'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
@@ -111,7 +105,8 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'Chrome',
+      'PhantomJS',
+      'Chrome'
     ],
 
     // Which plugins to enable

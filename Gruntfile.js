@@ -423,7 +423,7 @@ module.exports = function (grunt) {
       unit: {
         configFile: 'test/karma.conf.js',
         port: 9001,
-        browsers: ['Chrome']
+        browsers: ['PhantomJS','Chrome']
 
       }
     }

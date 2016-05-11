@@ -12,11 +12,11 @@ app
 
     return {
         get_tracking_data: function() {
-          return $http.post('http://127.0.0.1:8000/api-token-refresh/', token).success(function (data) {
+          return $http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token).success(function (data) {
             if (data.token) {
               $http({
                 method: 'POST',
-                url: 'http://127.0.0.1:8000/get_custom_ranged_tracking_source_data/',
+                url: $scope.main.settings.apiUrl+'/get_custom_ranged_tracking_source_data/',
                 data: {"tracking_source_id": $scope.source.show.source},
                 headers: {"Content-Type": "application/json"}  // set the headers so angular passing info as form data (not request payload)
               }).success(function (data) {
@@ -50,7 +50,7 @@ app
       var authData = $scope.user;
       $http({
         method: 'POST',
-        url: 'http://127.0.0.1:8000/api/v1/auth/logout/',
+        url: $scope.main.settings.apiUrl+'/api/v1/auth/logout/',
         data :authData,
         headers: { "Content-Type": "application/json", "Authorization": "JWT "+data.token }
       }).success(function(data) {
@@ -64,11 +64,11 @@ app
     console.log(userdata);
     var token = { 'token': userdata['token']};
     console.log(token);
-    $http.post('http://127.0.0.1:8000/api-token-refresh/', token ).success(function(data) {
+    $http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
       if (data.token) {
         $http({
           method: 'GET',
-          url: 'http://127.0.0.1:8000/api/v1/tracking_source/',
+          url: $scope.main.settings.apiUrl+'/api/v1/tracking_source/',
           headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
           $scope.source_list = data;
@@ -82,11 +82,11 @@ app
     $scope.filterBySource = function(tracking_id) {
       var tracking_source_data = {'tracking_source_id': tracking_id};
       console.log($scope.source.show.source);
-      $http.post('http://127.0.0.1:8000/api-token-refresh/', token ).success(function(data) {
+      $http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
         if (data.token) {
           $http({
             method: 'GET',
-            url: 'http://127.0.0.1:8000/api/v1/tracking_data/?tracking_source_id='+$scope.source.show.source,
+            url: $scope.main.settings.apiUrl+'/api/v1/tracking_data/?tracking_source_id='+$scope.source.show.source,
             headers: {"Content-Type": "application/json", "Authorization": "JWT "+data.token}  // set the headers so angular passing info as form data (not request payload)
           }).success(function (data) {
             $scope.tracking_data = data;

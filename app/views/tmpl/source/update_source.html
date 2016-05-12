@@ -39,19 +39,21 @@
     <!-- row -->
     <div class="row">
 
+      <div class="col-md-3">
 
+      </div>
       <!-- col -->
-      <div class="col-md-12">
+      <div class="col-md-6">
 
 
-        <form name="userForm" ng-submit="submitForm(userForm.$valid)" role="form" novalidate>
+        <form name="userForm" ng-submit="addSource(userForm.$valid)" role="form" novalidate>
 
           <!-- tile -->
           <section class="tile" fullscreen="isFullscreen01">
 
             <!-- tile header -->
             <div class="tile-header dvd dvd-btm">
-              <h1 class="custom-font"><strong>Add Source</strong></h1>
+              <h1 class="custom-font"><strong>Update Source</strong></h1>
               <ul class="controls">
                 <li class="dropdown" dropdown on-toggle="toggled(open)">
 
@@ -91,18 +93,17 @@
 
               <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine, 'has-success' : userForm.name.$valid && !userForm.name.$pristine}">
                 <label for="name">Name: </label>
-                <input type="text" name="name" id="name" class="form-control" ng-model="source.name" ng-minlength="3" ng-maxlength="8" required>
+                <input type="text" name="name" id="name" class="form-control" ng-model="source.add.name" ng-minlength="3" ng-maxlength="8" required>
                 <p class="help-block">
-                  <span ng-show="userForm.name.$invalid && !userForm.name.$pristine">name is required.</span>
-                  <span ng-show="userForm.name.$error.minlength">name is too short.</span>
-                  <span ng-show="userForm.name.$error.maxlength">name is too long.</span>
+                  <span ng-show="userForm.name.$invalid && !userForm.name.$pristine">Name is required.</span>
+                  <span ng-show="userForm.name.$error.minlength">Name is too short.</span>
+                  <span ng-show="userForm.name.$error.maxlength">Name is too long.</span>
                 </p>
               </div>
 
-
               <div class="form-group" ng-class="{ 'has-error' : userForm.website.$invalid && !userForm.website.$pristine, 'has-success' : userForm.website.$valid && !userForm.website.$pristine}">
                 <label for="website">Website: </label>
-                <input type="text" name="website" id="website" class="form-control" ng-model="source.website" ng-minlength="3" ng-maxlength="8" required>
+                <input type="url" name="website" id="website" class="form-control" ng-model="source.add.website" required>
                 <p class="help-block">
                   <span ng-show="userForm.website.$invalid && !userForm.website.$pristine">website is required.</span>
                   <span ng-show="userForm.website.$error.minlength">website name is too short.</span>
@@ -111,43 +112,23 @@
               </div>
 
 
-              <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine, 'has-success' : userForm.email.$valid && !userForm.email.$pristine}">
-                <label for="email">Website: </label>
-                <input type="email" name="email" id="email" class="form-control" ng-model="user.email" required>
-                <p class="help-block">
-                  <span ng-show="userForm.email.$invalid && !userForm.email.$pristine">Email is required.</span>
-                </p>
-              </div>
-
-              <div class="row">
-
-                <div class="form-group col-md-6" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine, 'has-success' : userForm.password.$valid && !userForm.password.$pristine}">
-                  <label for="password">Password: </label>
-                  <input type="password" name="password" id="password" class="form-control" ng-model="user.password" ng-minlength="6" required>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.industry_category.$invalid && !userForm.industry_category.$pristine, 'has-success' : userForm.industry_category.$valid && !userForm.industry_category.$pristine}">
+                <label for="industry_category">Industry Category: </label>
+                <select name="industry_category" id="industry_category" class="form-control mb-10 ng-touched ng-dirty ng-valid-parse ng-valid ng-valid-required" ng-model="source.add.industry_category" required="" aria-required="false" aria-invalid="false" style="" ng-options="item.id as item.name for item in industry_category_choices">
+                  <option value="">Select option... </option><option value="foo">Foo </option>
+                  <option value="bar">Bar </option>
                   <p class="help-block">
-                    <span ng-show="userForm.password.$invalid && !userForm.password.$pristine">Password is required.</span>
-                    <span ng-show="userForm.password.$error.minlength">Password is too short.</span>
+                    <span ng-show="userForm.industry_category.$invalid && !userForm.industry_category.$pristine">industry category is required.</span>
+                    <span ng-show="userForm.industry_category.$error.minlength">industry category is too short.</span>
+                    <span ng-show="userForm.industry_category.$error.maxlength">industry category is too long.</span>
                   </p>
-                </div>
-
-                <div class="form-group col-md-6" ng-class="{ 'has-error' : userForm.passwordConfirm.$invalid && !userForm.passwordConfirm.$pristine, 'has-success' : userForm.passwordConfirm.$valid && !userForm.passwordConfirm.$pristine}">
-                  <label for="passwordConfirm">Password confirmation: </label>
-                  <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control" ng-model="user.passwordConfirm" ui-validate=" '$value==user.password' " ui-validate-watch=" 'user.password' " required>
-                  <p class="help-block">
-                    <span ng-show='userForm.passwordConfirm.$error.validator'>Passwords do not match!</span>
-                  </p>
-                </div>
-
+                </select>
               </div>
 
 
-              <div class="form-group" ng-class="{ 'has-error' : userForm.phone.$invalid && !userForm.phone.$pristine, 'has-success' : userForm.phone.$valid && !userForm.phone.$pristine}">
-                <label for="phone">Phone: </label>
-                <input type="text" name="phone" id="phone" class="form-control" ng-model="user.phone" placeholder="(XXX) XXXX XXX" ng-pattern="/\([0-9]{3}\) ([0-9]{3}) ([0-9]{3})$/">
-                <p class="help-block">
-                  <span ng-show="userForm.phone.$invalid && !userForm.phone.$pristine">Phone in bad format.</span>
-                </p>
-              </div>
+
+
+
 
               <div class="checkbox" ng-class="{ 'has-error' : userForm.agree.$invalid && !userForm.agree.$pristine, 'has-success' : userForm.agree.$valid && !userForm.agree.$pristine}">
                 <label class="checkbox checkbox-custom">
@@ -183,6 +164,10 @@
 
       </div>
       <!-- /col -->
+
+      <div class="col-md-3">
+
+      </div>
 
 
 

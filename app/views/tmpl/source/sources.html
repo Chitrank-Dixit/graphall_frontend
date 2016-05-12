@@ -69,12 +69,16 @@
                     </a>
                   </li>
                   <li>
-                    <a href tile-control-fullscreen ng-click="isFullscreen13 = !isFullscreen13">
+                    <a ui-sref="app.update_source({
+                                  name: $scope.item.name,
+                                  website: $scope.item.website,
+                                  industry_category: $scope.item.industry_category
+                                })">
                       <fa name="expand"></fa> Update Source
                     </a>
                   </li>
                   <li>
-                    <a href tile-control-fullscreen ng-click="isFullscreen13 = !isFullscreen13">
+                    <a>
                       <fa name="expand"></fa> Delete Source
                     </a>
                   </li>

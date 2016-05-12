@@ -28,6 +28,7 @@ app
           headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
           $scope.source_list = data;
+          console.log($scope.source_list);
         });
       }
     });

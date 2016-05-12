@@ -36,15 +36,15 @@ app
 
     // function to submit the form after all validation has occurred
     $scope.addSource = function(isValid) {
-      console.log('validate form');
+
 
       // check to make sure the form is completely valid
       if (isValid) {
-        console.log('our form is amazing');
+
         var userdata = JSON.parse($window.localStorage.getItem('userdata'));
-        console.log(userdata);
+
         var token = { 'token': userdata['token']};
-        console.log(token);
+
         $http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data){
           if (data.token) {
             $http({
@@ -54,7 +54,7 @@ app
               headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
             })
               .success(function (data) {
-                console.log(data);
+
                 $state.go('app.dashboard');
 
 

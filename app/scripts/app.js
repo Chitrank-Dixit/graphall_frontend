@@ -198,6 +198,11 @@ var app = angular
               'scripts/vendor/datatables/datatables.bootstrap.min.css'
             ]);
           }]
+        },
+        params: {
+          name: '',
+          website: '',
+          industry_category: 1
         }
       })
     //mail

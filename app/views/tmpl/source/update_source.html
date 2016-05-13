@@ -46,7 +46,7 @@
       <div class="col-md-6">
 
 
-        <form name="userForm" ng-submit="addSource(userForm.$valid)" role="form" novalidate>
+        <form name="userForm" ng-submit="updateSource(userForm.$valid)" role="form" novalidate>
 
           <!-- tile -->
           <section class="tile" fullscreen="isFullscreen01">
@@ -93,7 +93,7 @@
 
               <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine, 'has-success' : userForm.name.$valid && !userForm.name.$pristine}">
                 <label for="name">Name: </label>
-                <input type="text" name="name" id="name" class="form-control" ng-model="source.add.name" ng-minlength="3" ng-maxlength="8" required>
+                <input type="text" name="name" id="name" class="form-control" ng-model="source.name" ng-minlength="3" ng-maxlength="8" required>
                 <p class="help-block">
                   <span ng-show="userForm.name.$invalid && !userForm.name.$pristine">Name is required.</span>
                   <span ng-show="userForm.name.$error.minlength">Name is too short.</span>
@@ -103,7 +103,7 @@
 
               <div class="form-group" ng-class="{ 'has-error' : userForm.website.$invalid && !userForm.website.$pristine, 'has-success' : userForm.website.$valid && !userForm.website.$pristine}">
                 <label for="website">Website: </label>
-                <input type="url" name="website" id="website" class="form-control" ng-model="source.add.website" required>
+                <input type="url" name="website" id="website" class="form-control" ng-model="source.website" required>
                 <p class="help-block">
                   <span ng-show="userForm.website.$invalid && !userForm.website.$pristine">website is required.</span>
                   <span ng-show="userForm.website.$error.minlength">website name is too short.</span>
@@ -114,7 +114,7 @@
 
               <div class="form-group" ng-class="{ 'has-error' : userForm.industry_category.$invalid && !userForm.industry_category.$pristine, 'has-success' : userForm.industry_category.$valid && !userForm.industry_category.$pristine}">
                 <label for="industry_category">Industry Category: </label>
-                <select name="industry_category" id="industry_category" class="form-control mb-10 ng-touched ng-dirty ng-valid-parse ng-valid ng-valid-required" ng-model="source.add.industry_category" required="" aria-required="false" aria-invalid="false" style="" ng-options="item.id as item.name for item in industry_category_choices">
+                <select name="industry_category" id="industry_category" class="form-control mb-10 ng-touched ng-dirty ng-valid-parse ng-valid ng-valid-required" ng-model="source.industry_category" required="" aria-required="false" aria-invalid="false" style="" ng-options="item.id as item.name for item in industry_category_choices">
                   <option value="">Select option... </option><option value="foo">Foo </option>
                   <option value="bar">Bar </option>
                   <p class="help-block">

@@ -35,8 +35,15 @@ app
 
     console.log($stateParams);
 
+    $scope.source= {
+      "name": $stateParams.name,
+      "website": $stateParams.website,
+      "industry_category": $scope.industry_category_choices[parseInt($stateParams.industry_category) - 1]['id'],
+    };
+
+    console.log($scope.source);
     // function to submit the form after all validation has occurred
-    $scope.addSource = function(isValid) {
+    $scope.updateSource = function(isValid) {
 
 
       // check to make sure the form is completely valid

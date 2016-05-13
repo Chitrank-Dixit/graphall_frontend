@@ -70,9 +70,9 @@
                   </li>
                   <li>
                     <a ui-sref="app.update_source({
-                                  name: $scope.item.name,
-                                  website: $scope.item.website,
-                                  industry_category: $scope.item.industry_category
+                                  name: '{{item.name}}',
+                                  website: '{{item.website}}',
+                                  industry_category: '{{item.industry_category}}'
                                 })">
                       <fa name="expand"></fa> Update Source
                     </a>

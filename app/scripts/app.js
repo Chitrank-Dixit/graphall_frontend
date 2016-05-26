@@ -128,6 +128,19 @@ var app = angular
         }]
       }
     })
+      .state('app.user_profile', {
+        url: '/user_profile',
+        controller: 'ProfileCtrl',
+        templateUrl: 'views/tmpl/pages/profile.html',
+        resolve: {
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css'
+            ]);
+          }]
+        }
+      })
     // Tracking source
     .state('app.source', {
       abstract: true,

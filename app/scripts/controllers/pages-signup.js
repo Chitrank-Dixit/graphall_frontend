@@ -14,8 +14,30 @@ app.controller('SignupCtrl', function ($scope, $state, $http, $window) {
           username: data.username,
           password: data.password
         };
+
+
+
         $http.post($scope.main.settings.apiUrl+'/api-token-auth/', authData).success(function(data){
           var token = data.token;
+          var client_dict = {
+            "user": data.id,
+            "plan": 1,
+            "access_level": 1
+          };
+          //$http.post($scope.main.settings.apiUrl+'/api/v1/clients/', client_dict).success(function(data){
+          //  console.log(data);
+          //});
+
+          $http({
+            method  : 'POST',
+            url     : $scope.main.settings.apiUrl+'/api/v1/clients/',
+            data    : client_dict,  // pass in data as strings
+            headers : { "Content-Type": "application/json", "Authorization": "JWT "+data.token  }  // set the headers so angular passing info as form data (not request payload)
+          })
+          .success(function(data){
+            console.log(data);
+          });
+
           $http({
             method  : 'POST',
             url     : $scope.main.settings.apiUrl+'/api/v1/auth/login/',

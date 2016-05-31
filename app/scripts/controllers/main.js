@@ -20,7 +20,7 @@ app
         headerFixed: true,
         asideFixed: true,
         rightbarShow: false,
-        apiUrl : 'http://52.37.136.11/'
+        apiUrl : 'http://127.0.0.1:8000' //'http://52.37.136.11/'
       }
     };
 

@@ -141,6 +141,19 @@ var app = angular
           }]
         }
       })
+      .state('app.logout', {
+        url: '/logout',
+        controller: 'LogoutCtrl',
+        resolve: {
+          plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'scripts/vendor/datatables/datatables.bootstrap.min.css',
+              'scripts/vendor/datatables/datatables.bootstrap.min.css'
+            ]);
+          }]
+        }
+
+      })
     // Tracking source
     .state('app.source', {
       abstract: true,

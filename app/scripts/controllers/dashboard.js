@@ -45,19 +45,36 @@ app
 
     $scope.getUsers();
 
+    var user_data = JSON.parse($window.localStorage.getItem('userdata'));
+    $scope.username = user_data['username'];
+    console.log($scope.username);
+
+    //if($event && $event.target && $event.target.href) {
+    //  $event.target.click();
+    //  $event.preventDefault();
+    //  $event.stopPropagation();
+    //  return;
+    //}
+
+    $scope.abcdefg = function() {
+        console.log("Hello MR Chitrank");
+    };
+
     $scope.logoutUser = function() {
       console.log("Inside");
       var authData = $scope.user;
       $http({
         method: 'POST',
         url: $scope.main.settings.apiUrl+'/api/v1/auth/logout/',
-        data :authData,
+        data : authData,
         headers: { "Content-Type": "application/json", "Authorization": "JWT "+data.token }
       }).success(function(data) {
         console.log("Logged out successfully");
+        $state.go('core.login');
+
 
       });
-    }
+    };
 
 
     var userdata = JSON.parse($window.localStorage.getItem('userdata'));
@@ -136,6 +153,7 @@ app
 
     };
   })
+
 
   .controller('StatisticsChartCtrl', function ($scope) {
 

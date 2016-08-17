@@ -415,7 +415,9 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ],
-      limit: 20
+      options: {
+        limit: 20
+      }
     },
 
 

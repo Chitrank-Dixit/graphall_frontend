@@ -20,7 +20,7 @@ app
         headerFixed: true,
         asideFixed: true,
         rightbarShow: false,
-        apiUrl : 'https://api.graphall.in/' //'http://52.37.136.11/'
+        apiUrl : 'https://api.graphall.in' //'http://52.37.136.11/'
       }
     };
 

@@ -28,7 +28,7 @@ app
       }
 
   })
-  .controller('DashboardCtrl', function($scope,$http, $window, $state, $timeout){
+  .controller('DashboardCtrl', function($scope, $http, $window, $state, $timeout, oauth, analytics){
     $scope.page = {
       title: 'Dashboard',
       subtitle: 'Place subtitle here...'
@@ -63,15 +63,9 @@ app
     $scope.logoutUser = function() {
       console.log("Inside");
       var authData = $scope.user;
-      $http({
-        method: 'POST',
-        url: $scope.main.settings.apiUrl+'/api/v1/auth/logout/',
-        data : authData,
-        headers: { "Content-Type": "application/json", "Authorization": "JWT "+data.token }
-      }).success(function(data) {
-        console.log("Logged out successfully");
-        $state.go('core.login');
-
+      user.logout($scope.main.settings.apiUrl+'/api/v1/auth/logout/', authData, token).success(function(data){
+        $state.go("core.login");
+      }).error(function(data){
 
       });
     };
@@ -82,12 +76,7 @@ app
     var refresh_token = userdata['refresh_token'];
     var token = { 'token': userdata['token']};
     console.log(token);
-    var refreshTokenData = {
-      grant_type: 'refresh_token',
-      client_id: $scope.main.settings.client_id,
-      client_secret: $scope.main.settings.client_secret,
-      refresh_token: refresh_token
-    };
+
     //$http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
     //  if (data.token) {
     //    $http({
@@ -102,45 +91,59 @@ app
     //});
 
 
-    if (token !== null) {
-      $http({
-        method: 'GET',
-        url: $scope.main.settings.apiUrl+'/api/v1/tracking_source/',
-        headers: {"Content-Type": "application/json", "Authorization": "bearer " +token}  // set the headers so angular passing info as form data (not request payload)
-      }).success(function (data) {
-        $scope.source_list = data;
-        console.log($scope.source_list);
-      });
-    }
-    else {
-      $http({
-        method: 'POST',
-        url: $scope.main.settings.apiUrl + '/o/token/',
-        headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        transformRequest: function (obj) {
-          var str = [];
-          for (var p in obj)
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-          return str.join("&");
-        },
-        data: refreshTokenData
-      }).success(function (data) {
+
+    analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(data){
+      $scope.source_list = data;
+      console.log($scope.source_list);
+    }).error(function(data){
+      var refreshTokenData = {
+        grant_type: 'refresh_token',
+        client_id: $scope.main.settings.client_id,
+        client_secret: $scope.main.settings.client_secret,
+        refresh_token: refresh_token
+      };
+      oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/', refreshTokenData).success(function(data){
         token = data.access_token;
         userdata['token'] = token;
         userdata['refresh_token'] = data.refresh_token;
         $window.localStorage.setItem('userdata', JSON.stringify(userdata));
-        $http({
-          method: 'GET',
-          url: $scope.main.settings.apiUrl + '/api/v1/tracking_source/',
-          headers: {"Content-Type": "application/json", "Authorization": "bearer " + token}  // set the headers so angular passing info as form data (not request payload)
-        }).success(function (data) {
+        analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(data){
           $scope.source_list = data;
-          console.log($scope.source_list);
-        });
-      }).error(function (data) {
+        }).error(function(data){
 
-      });
-    }
+        });
+      })
+    });
+
+    //else {
+    //  $http({
+    //    method: 'POST',
+    //    url: $scope.main.settings.apiUrl + '/o/token/',
+    //    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+    //    transformRequest: function (obj) {
+    //      var str = [];
+    //      for (var p in obj)
+    //        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    //      return str.join("&");
+    //    },
+    //    data: refreshTokenData
+    //  }).success(function (data) {
+    //    token = data.access_token;
+    //    userdata['token'] = token;
+    //    userdata['refresh_token'] = data.refresh_token;
+    //    $window.localStorage.setItem('userdata', JSON.stringify(userdata));
+    //    $http({
+    //      method: 'GET',
+    //      url: $scope.main.settings.apiUrl + '/api/v1/tracking_source/',
+    //      headers: {"Content-Type": "application/json", "Authorization": "bearer " + token}  // set the headers so angular passing info as form data (not request payload)
+    //    }).success(function (data) {
+    //      $scope.source_list = data;
+    //      console.log($scope.source_list);
+    //    });
+    //  }).error(function (data) {
+    //
+    //  });
+    //}
 
 
 

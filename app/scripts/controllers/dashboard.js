@@ -79,20 +79,69 @@ app
 
     var userdata = JSON.parse($window.localStorage.getItem('userdata'));
     console.log(userdata);
+    var refresh_token = userdata['refresh_token'];
     var token = { 'token': userdata['token']};
     console.log(token);
-    $http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
-      if (data.token) {
+    var refreshTokenData = {
+      grant_type: 'refresh_token',
+      client_id: $scope.main.settings.client_id,
+      client_secret: $scope.main.settings.client_secret,
+      refresh_token: refresh_token
+    };
+    //$http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
+    //  if (data.token) {
+    //    $http({
+    //      method: 'GET',
+    //      url: $scope.main.settings.apiUrl+'/api/v1/tracking_source/',
+    //      headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
+    //    }).success(function (data) {
+    //      $scope.source_list = data;
+    //      console.log($scope.source_list);
+    //    });
+    //  }
+    //});
+
+
+    if (token !== null) {
+      $http({
+        method: 'GET',
+        url: $scope.main.settings.apiUrl+'/api/v1/tracking_source/',
+        headers: {"Content-Type": "application/json", "Authorization": "bearer " +token}  // set the headers so angular passing info as form data (not request payload)
+      }).success(function (data) {
+        $scope.source_list = data;
+        console.log($scope.source_list);
+      });
+    }
+    else {
+      $http({
+        method: 'POST',
+        url: $scope.main.settings.apiUrl + '/o/token/',
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        transformRequest: function (obj) {
+          var str = [];
+          for (var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          return str.join("&");
+        },
+        data: refreshTokenData
+      }).success(function (data) {
+        token = data.access_token;
+        userdata['token'] = token;
+        userdata['refresh_token'] = data.refresh_token;
+        $window.localStorage.setItem('userdata', JSON.stringify(userdata));
         $http({
           method: 'GET',
-          url: $scope.main.settings.apiUrl+'/api/v1/tracking_source/',
-          headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
+          url: $scope.main.settings.apiUrl + '/api/v1/tracking_source/',
+          headers: {"Content-Type": "application/json", "Authorization": "bearer " + token}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
           $scope.source_list = data;
           console.log($scope.source_list);
         });
-      }
-    });
+      }).error(function (data) {
+
+      });
+    }
+
 
 
 

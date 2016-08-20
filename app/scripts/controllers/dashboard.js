@@ -92,8 +92,8 @@ app
 
 
 
-    analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(data){
-      $scope.source_list = data;
+    analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(response){
+      $scope.source_list = response.data;
       console.log($scope.source_list);
     }).error(function(data){
       var refreshTokenData = {
@@ -107,8 +107,8 @@ app
         userdata['token'] = token;
         userdata['refresh_token'] = data.refresh_token;
         $window.localStorage.setItem('userdata', JSON.stringify(userdata));
-        analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(data){
-          $scope.source_list = data;
+        analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(response){
+          $scope.source_list = response.data;
         }).error(function(data){
 
         });

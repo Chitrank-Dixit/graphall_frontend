@@ -9,7 +9,7 @@ app.factory('analytics', function ($http, $q) {
       return $http({
         method: 'GET',
         url: url,
-        headers: {"Content-Type": "application/json", "Authorization": "bearer " +token}  // set the headers so angular passing info as form data (not request payload)
+        headers: {"Content-Type": "application/json", "Authorization": "bearer "+token}  // set the headers so angular passing info as form data (not request payload)
       });
     }
   }

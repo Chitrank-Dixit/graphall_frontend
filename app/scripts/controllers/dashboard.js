@@ -71,10 +71,9 @@ app
     };
 
 
-    var userdata = JSON.parse($window.localStorage.getItem('userdata'));
-    console.log(userdata);
-    var refresh_token = userdata['refresh_token'];
-    var token = { 'token': userdata['token']};
+    var user_local_data = JSON.parse($window.localStorage.getItem('userdata'));
+    var refresh_token = user_local_data['refresh_token'];
+    var token = { 'token': user_local_data['token']};
     console.log(token);
 
     //$http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
@@ -96,6 +95,7 @@ app
       $scope.source_list = response.data;
       console.log($scope.source_list);
     }).error(function(data){
+      console.log(data);
       var refreshTokenData = {
         grant_type: 'refresh_token',
         client_id: $scope.main.settings.client_id,
@@ -104,9 +104,16 @@ app
       };
       oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/', refreshTokenData).success(function(data){
         token = data.access_token;
-        userdata['token'] = token;
-        userdata['refresh_token'] = data.refresh_token;
-        $window.localStorage.setItem('userdata', JSON.stringify(userdata));
+        refresh_token = data.refresh_token;
+        var user_data = {};
+        user_data['token'] = token;
+        user_data['refresh_token'] = data.refresh_token;
+        user_data['first_name'] = user_local_data['first_name'];
+        user_data['last_name'] = user_local_data['last_name'];
+        user_data['username'] = user_local_data['username'];
+        user_data['email'] = user_local_data['email'];
+        console.log(data);
+        $window.localStorage.setItem('userdata', JSON.stringify(user_data));
         analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(response){
           $scope.source_list = response.data;
         }).error(function(data){
@@ -115,93 +122,129 @@ app
       })
     });
 
-    //else {
-    //  $http({
-    //    method: 'POST',
-    //    url: $scope.main.settings.apiUrl + '/o/token/',
-    //    headers: {"Content-Type": "application/x-www-form-urlencoded"},
-    //    transformRequest: function (obj) {
-    //      var str = [];
-    //      for (var p in obj)
-    //        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-    //      return str.join("&");
-    //    },
-    //    data: refreshTokenData
-    //  }).success(function (data) {
-    //    token = data.access_token;
-    //    userdata['token'] = token;
-    //    userdata['refresh_token'] = data.refresh_token;
-    //    $window.localStorage.setItem('userdata', JSON.stringify(userdata));
-    //    $http({
-    //      method: 'GET',
-    //      url: $scope.main.settings.apiUrl + '/api/v1/tracking_source/',
-    //      headers: {"Content-Type": "application/json", "Authorization": "bearer " + token}  // set the headers so angular passing info as form data (not request payload)
-    //    }).success(function (data) {
-    //      $scope.source_list = data;
-    //      console.log($scope.source_list);
-    //    });
-    //  }).error(function (data) {
-    //
-    //  });
-    //}
-
 
 
 
     $scope.filterBySource = function(tracking_id) {
       var tracking_source_data = {'tracking_source_id': tracking_id};
       console.log($scope.source.show.source);
-      $http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
-        if (data.token) {
-          $http({
-            method: 'GET',
-            url: $scope.main.settings.apiUrl+'/api/v1/tracking_data/?tracking_source_id='+$scope.source.show.source,
-            headers: {"Content-Type": "application/json", "Authorization": "JWT "+data.token}  // set the headers so angular passing info as form data (not request payload)
-          }).success(function (data) {
-            $scope.tracking_data = data;
-            console.log($scope.tracking_data);
-            var chrome = 0;
-            var firefox = 0;
-            console.log($scope.tracking_data);
-            $scope.source.views = $scope.tracking_data.page_views;
-            var element;
-            for (element in $scope.tracking_data.web_browser) {
-              console.log(element, $scope.tracking_data.web_browser);
-              if ($scope.tracking_data.web_browser[element] === "1"){
-                chrome = chrome + 1;
-              }
-              else if ($scope.tracking_data.web_browser[element] === "2")
-              {
-                firefox = firefox + 1;
-              }
+      var refreshTokenData = {
+        grant_type: 'refresh_token',
+        client_id: $scope.main.settings.client_id,
+        client_secret: $scope.main.settings.client_secret,
+        refresh_token: refresh_token
+      };
+      oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/', refreshTokenData).success(function(data){
+        var token = data.access_token;
+        var user_data = {};
+        user_data['token'] = token;
+        user_data['refresh_token'] = data.refresh_token;
+        user_data['first_name'] = user_local_data['first_name'];
+        user_data['last_name'] = user_local_data['last_name'];
+        user_data['username'] = user_local_data['username'];
+        user_data['email'] = user_local_data['email'];
+        $window.localStorage.setItem('userdata', JSON.stringify(user_data));
+        analytics.search_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_data/?tracking_source_id='+$scope.source.show.source, token).success(function(response){
+          $scope.tracking_data = response.data;
+          console.log($scope.tracking_data);
+          var chrome = 0;
+          var firefox = 0;
+          console.log($scope.tracking_data);
+          $scope.source.views = $scope.tracking_data.page_views;
+          var element;
+          for (element in $scope.tracking_data.web_browser) {
+            console.log(element, $scope.tracking_data.web_browser);
+            if ($scope.tracking_data.web_browser[element] === "1"){
+              chrome = chrome + 1;
             }
-            console.log(chrome, firefox);
-            $scope.donutData = [
-              {label: 'Chrome', value: chrome, color: '#00a3d8'},
-              {label: 'Safari', value: 0, color: '#2fbbe8'},
-              {label: 'Firefox', value: firefox, color: '#72cae7'},
-              {label: 'Opera', value: 0, color: '#d9544f'},
-              {label: 'Internet Explorer', value: 0, color: '#ffc100'},
-              {label: 'Other', value: 0, color: '#1693A5'}
-            ];
+            else if ($scope.tracking_data.web_browser[element] === "2")
+            {
+              firefox = firefox + 1;
+            }
+          }
+          console.log(chrome, firefox);
+          $scope.donutData = [
+            {label: 'Chrome', value: chrome, color: '#00a3d8'},
+            {label: 'Safari', value: 0, color: '#2fbbe8'},
+            {label: 'Firefox', value: firefox, color: '#72cae7'},
+            {label: 'Opera', value: 0, color: '#d9544f'},
+            {label: 'Internet Explorer', value: 0, color: '#ffc100'},
+            {label: 'Other', value: 0, color: '#1693A5'}
+          ];
 
-            $scope.oneAtATime = true;
+          $scope.oneAtATime = true;
 
-            $scope.status = {
-              isFirstOpen: true,
-              tab1: {
-                open: true
-              },
-              tab2: {
-                open: false
-              },
-              tab3: {
-                open: false
-              }
-            };
-          });
-        }
+          $scope.status = {
+            isFirstOpen: true,
+            tab1: {
+              open: true
+            },
+            tab2: {
+              open: false
+            },
+            tab3: {
+              open: false
+            }
+          };
+        }).error(function(data){
+
+        });
+
+      }).error(function(data){
+
       });
+
+      //$http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
+      //  if (data.token) {
+      //    $http({
+      //      method: 'GET',
+      //      url: $scope.main.settings.apiUrl+'/api/v1/tracking_data/?tracking_source_id='+$scope.source.show.source,
+      //      headers: {"Content-Type": "application/json", "Authorization": "JWT "+data.token}  // set the headers so angular passing info as form data (not request payload)
+      //    }).success(function (data) {
+      //      $scope.tracking_data = data;
+      //      console.log($scope.tracking_data);
+      //      var chrome = 0;
+      //      var firefox = 0;
+      //      console.log($scope.tracking_data);
+      //      $scope.source.views = $scope.tracking_data.page_views;
+      //      var element;
+      //      for (element in $scope.tracking_data.web_browser) {
+      //        console.log(element, $scope.tracking_data.web_browser);
+      //        if ($scope.tracking_data.web_browser[element] === "1"){
+      //          chrome = chrome + 1;
+      //        }
+      //        else if ($scope.tracking_data.web_browser[element] === "2")
+      //        {
+      //          firefox = firefox + 1;
+      //        }
+      //      }
+      //      console.log(chrome, firefox);
+      //      $scope.donutData = [
+      //        {label: 'Chrome', value: chrome, color: '#00a3d8'},
+      //        {label: 'Safari', value: 0, color: '#2fbbe8'},
+      //        {label: 'Firefox', value: firefox, color: '#72cae7'},
+      //        {label: 'Opera', value: 0, color: '#d9544f'},
+      //        {label: 'Internet Explorer', value: 0, color: '#ffc100'},
+      //        {label: 'Other', value: 0, color: '#1693A5'}
+      //      ];
+      //
+      //      $scope.oneAtATime = true;
+      //
+      //      $scope.status = {
+      //        isFirstOpen: true,
+      //        tab1: {
+      //          open: true
+      //        },
+      //        tab2: {
+      //          open: false
+      //        },
+      //        tab3: {
+      //          open: false
+      //        }
+      //      };
+      //    });
+      //  }
+      //});
 
     };
   })

@@ -44,8 +44,10 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
       console.log(token, refresh_token);
       user.login($scope.main.settings.apiUrl+'/api/v1/auth/login/', authData, token).success(function(data){
         console.log(data, data.username , data.first_name, token, data.last_name, data.email);
-        var userdata = { "username": data.username, "first_name": data.first_name , "token": token , "refresh_token": refresh_token,"last_name":data.last_name , "email": data.email};
+        var userdata = { "username": data.username, "first_name": data.first_name , "last_name":data.last_name , "email": data.email};
         $window.localStorage.setItem('userdata', JSON.stringify(userdata));
+        var tokendata = {"token": token , "refresh_token": refresh_token}
+        $window.localStorage.setItem('tokendata', JSON.stringify(tokendata));
         $state.go('app.dashboard');
       }).error(function(data){
 

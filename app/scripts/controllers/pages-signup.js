@@ -79,8 +79,10 @@ app.controller('SignupCtrl', function ($scope, $state, $http, $window, oauth, us
             password: authData.password
           };
           user.login($scope.main.settings.apiUrl+'/api/v1/auth/login/', loginData, token).success(function(data){
-            var userdata = { "username": $scope.userRegistered.username, "first_name": $scope.userRegistered.first_name , "token": token, "refresh_token": refresh_token, "last_name": $scope.userRegistered.last_name , "email": $scope.userRegistered.email};
+            var userdata = { "username": $scope.userRegistered.username, "first_name": $scope.userRegistered.first_name , "last_name": $scope.userRegistered.last_name , "email": $scope.userRegistered.email};
             $window.localStorage.setItem('userdata', JSON.stringify(userdata));
+            var tokendata = { "token": token, "refresh_token": refresh_token };
+            $window.localStorage.setItem('tokendata', JSON.stringify(tokendata));
             $state.go('app.dashboard');
           }).error(function(data){
 

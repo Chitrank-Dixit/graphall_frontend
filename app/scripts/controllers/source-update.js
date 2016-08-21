@@ -14,7 +14,7 @@
  * Controller of the Graphall
  */
 app
-  .controller('UpdateSourceCtrl', function ($scope, $stateParams) {
+  .controller('UpdateSourceCtrl', function ($scope, $stateParams, $window, oauth, analytics) {
     $scope.page = {
       title: 'Update Source',
       subtitle: 'Place subtitle here...'
@@ -49,33 +49,57 @@ app
       // check to make sure the form is completely valid
       if (isValid) {
         console.log('our form is amazing');
-        var userdata = JSON.parse($window.localStorage.getItem('userdata'));
-        console.log(userdata);
-        var token = { 'token': userdata['token']};
-        console.log(token);
-        $http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data){
-          if (data.token) {
-            $http({
-              method: 'PATCH',
-              url: $scope.main.settings.apiUrl+'/api/v1/tracking_source/',
-              data: $scope.source.add,  // pass in data as strings
-              headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
+        var tokendata = JSON.parse($window.localStorage.getItem('tokendata'));
+        console.log(tokendata);
+        var token = tokendata['token'];
+        var refresh_token = tokendata['refresh_token'];
+        var user_data = {};
+        var refreshTokenData = {
+          grant_type: 'refresh_token',
+          client_id: $scope.main.settings.client_id,
+          client_secret: $scope.main.settings.client_secret,
+          refresh_token: refresh_token
+        };
+        console.log(token, $scope.source.add);
+        analytics.update_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token, $scope.source.add).success(function(response){
+          $state.go('app.dashboard');
+        }).error(function(data){
+
+          oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/' , refreshTokenData).success(function(data){
+            var tokendata = { "token": data.access_token, "refresh_token": data.refresh_token};
+            $window.localStorage.setItem('tokendata', JSON.stringify(tokendata));
+            analytics.update_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token, $scope.source.add).success(function(response){
+              $state.go('app.dashboard');
+            }).error(function(data){
+
             })
-              .success(function (data) {
-                console.log(data);
-                $state.go('app.dashboard');
+          }).error(function(data){
 
-
-              });
-          }
-          else if (data.non_field_erros) {
-            //var userdata = {'username': userdata['username'], ''}
-            //$http.post('http://127.0.0.1:8000/api-token-refresh/', token ).success(function(data){
-            //
-            //});
-
-          }
+          });
         });
+        //$http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data){
+        //  if (data.token) {
+        //    $http({
+        //      method: 'PATCH',
+        //      url: $scope.main.settings.apiUrl+'/api/v1/tracking_source/',
+        //      data: $scope.source.add,  // pass in data as strings
+        //      headers: {"Content-Type": "application/json", "Authorization": "JWT " + data.token}  // set the headers so angular passing info as form data (not request payload)
+        //    })
+        //      .success(function (data) {
+        //        console.log(data);
+        //        $state.go('app.dashboard');
+        //
+        //
+        //      });
+        //  }
+        //  else if (data.non_field_erros) {
+        //    //var userdata = {'username': userdata['username'], ''}
+        //    //$http.post('http://127.0.0.1:8000/api-token-refresh/', token ).success(function(data){
+        //    //
+        //    //});
+        //
+        //  }
+        //});
       } else {
         console.log('form is invalid');
       }

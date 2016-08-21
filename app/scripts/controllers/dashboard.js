@@ -72,8 +72,9 @@ app
 
 
     var user_local_data = JSON.parse($window.localStorage.getItem('userdata'));
-    var refresh_token = user_local_data['refresh_token'];
-    var token = { 'token': user_local_data['token']};
+    var token_data = JSON.parse($window.localStorage.getItem('tokendata'));
+    var refresh_token = token_data['refresh_token'];
+    var token = token_data['token'];
     console.log(token);
 
     //$http.post($scope.main.settings.apiUrl+'/api-token-refresh/', token ).success(function(data) {
@@ -105,15 +106,9 @@ app
       oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/', refreshTokenData).success(function(data){
         token = data.access_token;
         refresh_token = data.refresh_token;
-        var user_data = {};
-        user_data['token'] = token;
-        user_data['refresh_token'] = data.refresh_token;
-        user_data['first_name'] = user_local_data['first_name'];
-        user_data['last_name'] = user_local_data['last_name'];
-        user_data['username'] = user_local_data['username'];
-        user_data['email'] = user_local_data['email'];
+        var tokendata = {"token": token , "refresh_token": data.refresh_token};
         console.log(data);
-        $window.localStorage.setItem('userdata', JSON.stringify(user_data));
+        $window.localStorage.setItem('tokendata', JSON.stringify(tokendata));
         analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(response){
           $scope.source_list = response.data;
         }).error(function(data){
@@ -136,14 +131,8 @@ app
       };
       oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/', refreshTokenData).success(function(data){
         var token = data.access_token;
-        var user_data = {};
-        user_data['token'] = token;
-        user_data['refresh_token'] = data.refresh_token;
-        user_data['first_name'] = user_local_data['first_name'];
-        user_data['last_name'] = user_local_data['last_name'];
-        user_data['username'] = user_local_data['username'];
-        user_data['email'] = user_local_data['email'];
-        $window.localStorage.setItem('userdata', JSON.stringify(user_data));
+        var tokendata = {"token": token , "refresh_token": data.refresh_token};
+        $window.localStorage.setItem('tokendata', JSON.stringify(tokendata));
         analytics.search_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_data/?tracking_source_id='+$scope.source.show.source, token).success(function(response){
           $scope.tracking_data = response.data;
           console.log($scope.tracking_data);

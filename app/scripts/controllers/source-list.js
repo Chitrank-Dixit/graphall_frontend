@@ -29,6 +29,7 @@ app
     };
     analytics.list_tracking_sources($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token).success(function(response){
       $scope.source_list = response.data;
+      console.log("Items are",$scope.source_list);
     }).error(function(data){
       oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/', refreshTokenData).success(function(data){
         var token = data.access_token;

@@ -226,6 +226,7 @@ var app = angular
           }]
         },
         params: {
+          id: 0,
           name: '',
           website: '',
           industry_category: 1

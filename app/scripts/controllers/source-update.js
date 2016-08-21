@@ -14,7 +14,7 @@
  * Controller of the Graphall
  */
 app
-  .controller('UpdateSourceCtrl', function ($scope, $stateParams, $window, oauth, analytics) {
+  .controller('UpdateSourceCtrl', function ($scope, $stateParams, $window, $state, oauth, analytics) {
     $scope.page = {
       title: 'Update Source',
       subtitle: 'Place subtitle here...'
@@ -36,10 +36,14 @@ app
     console.log($stateParams);
 
     $scope.source= {
+      "id": $stateParams.id,
       "name": $stateParams.name,
       "website": $stateParams.website,
-      "industry_category": $scope.industry_category_choices[parseInt($stateParams.industry_category) - 1]['id'],
+      "industry_category": $scope.industry_category_choices[parseInt($stateParams.industry_category) - 1]['id']
     };
+
+    var record_id = $stateParams.id;
+    console.log(record_id);
 
     console.log($scope.source);
     // function to submit the form after all validation has occurred
@@ -60,15 +64,15 @@ app
           client_secret: $scope.main.settings.client_secret,
           refresh_token: refresh_token
         };
-        console.log(token, $scope.source.add);
-        analytics.update_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token, $scope.source.add).success(function(response){
+        console.log(token, $scope.source);
+        analytics.update_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_source/'+String(record_id)+'/', token, $scope.source).success(function(response){
           $state.go('app.dashboard');
         }).error(function(data){
 
           oauth.create_or_refresh_token($scope.main.settings.apiUrl+'/o/token/' , refreshTokenData).success(function(data){
             var tokendata = { "token": data.access_token, "refresh_token": data.refresh_token};
             $window.localStorage.setItem('tokendata', JSON.stringify(tokendata));
-            analytics.update_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token, $scope.source.add).success(function(response){
+            analytics.update_tracking_source($scope.main.settings.apiUrl+'/api/v1/tracking_source/', token, $scope.source).success(function(response){
               $state.go('app.dashboard');
             }).error(function(data){
 

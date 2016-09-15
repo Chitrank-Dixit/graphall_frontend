@@ -20,7 +20,14 @@ app
         headerFixed: true,
         asideFixed: true,
         rightbarShow: false,
-        apiUrl : 'https://api.graphall.in' //'http://52.37.136.11/'
+        //apiUrl : 'http://127.0.0.1:8000',
+        apiUrl: 'https//api.graphall.in',
+        // local app
+        //client_id: 'pVxBe7J4E36fYYyxisURBv3GplUFMyg49b9guxXV',
+        //client_secret: 'HMwtvPvZGhgCpfcC52mSDpcMJv6Ys1RqCtX0SKXmJfHAAnMnE7BhGLBRiawxGr83Jj5tsl2NT9YGWtTJLskSzJLrK3PBFGTX5XqnEciDmMG73FSTUUJms1XThxQbGxxt'
+        // server app
+        client_id: "Q8aATrW25ZGM9vZ02imbvzE0Akl5NP8VVnNLIHdl",
+        client_secret: "OUd9RAcoXhgJZjb1Ui6Es0HW1rjjzNIo4YzbDwZbHOyaos3HS3pcdIwSCsKETNScovrIr52oqWJNyyv7sP7hE4H1cjCuTbqqBPKGPhGA7NKJ4SD1SLkWQ5BR5FnjxFJ0"
       }
     };
 

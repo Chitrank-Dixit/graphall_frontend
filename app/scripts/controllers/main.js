@@ -21,7 +21,7 @@ app
         asideFixed: true,
         rightbarShow: false,
         //apiUrl : 'http://127.0.0.1:8000',
-        apiUrl: 'https//api.graphall.in',
+        apiUrl: 'https://api.graphall.in',
         // local app
         //client_id: 'pVxBe7J4E36fYYyxisURBv3GplUFMyg49b9guxXV',
         //client_secret: 'HMwtvPvZGhgCpfcC52mSDpcMJv6Ys1RqCtX0SKXmJfHAAnMnE7BhGLBRiawxGr83Jj5tsl2NT9YGWtTJLskSzJLrK3PBFGTX5XqnEciDmMG73FSTUUJms1XThxQbGxxt'

@@ -25,9 +25,9 @@ app
         // local app
         //client_id: 'pVxBe7J4E36fYYyxisURBv3GplUFMyg49b9guxXV',
         //client_secret: 'HMwtvPvZGhgCpfcC52mSDpcMJv6Ys1RqCtX0SKXmJfHAAnMnE7BhGLBRiawxGr83Jj5tsl2NT9YGWtTJLskSzJLrK3PBFGTX5XqnEciDmMG73FSTUUJms1XThxQbGxxt'
-        // server app
-        client_id: "Q8aATrW25ZGM9vZ02imbvzE0Akl5NP8VVnNLIHdl",
-        client_secret: "OUd9RAcoXhgJZjb1Ui6Es0HW1rjjzNIo4YzbDwZbHOyaos3HS3pcdIwSCsKETNScovrIr52oqWJNyyv7sP7hE4H1cjCuTbqqBPKGPhGA7NKJ4SD1SLkWQ5BR5FnjxFJ0"
+        // server app (now on ec2 not on rds)
+        client_id: "wmNGhxclGCFcSx7VD1DYqKmyjV3ha7qExRVoMHQl",
+        client_secret: "goXbQ6i35w4cTrrpdERFwI8SL0CFHcjmvKMACgXr2fmipDG9Os3x2KjqVIK1iUtuAPYc58pzKrPuRk0uAtaKAhnS90rvbRsE123qc2R7qtpufR1rTp7MrfL1Vt5Oedhw"
       }
     };
 

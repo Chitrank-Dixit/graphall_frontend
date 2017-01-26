@@ -33,13 +33,13 @@
 
       <ul class="pull-right list-unstyled list-inline">
 				<li class="p-0">
-					<a class="btn btn-sm btn-primary b-0 btn-rounded-20" href="javascript:;"><i class="fa fa-facebook"></i></a>
+					<a class="btn btn-sm btn-primary b-0 btn-rounded-20" href="javascript:;" ng-click="authenticate('facebook')"><i class="fa fa-facebook"></i></a>
 				</li>
 				<li class="p-0">
-					<a class="btn btn-sm btn-info b-0 btn-rounded-20" href="javascript:;"><i class="fa fa-twitter"></i></a>
+					<a class="btn btn-sm btn-info b-0 btn-rounded-20" href="javascript:;" ng-click="authenticate('twitter')"><i class="fa fa-twitter"></i></a>
 				</li>
 				<li class="p-0">
-					<a class="btn btn-sm btn-lightred b-0 btn-rounded-20" href="javascript:;"><i class="fa fa-google-plus"></i></a>
+					<a class="btn btn-sm btn-lightred b-0 btn-rounded-20" href="javascript:;" ng-click="authenticate('google')"><i class="fa fa-google-plus"></i></a>
 				</li>
 				<li class="p-0">
 					<a class="btn btn-sm btn-primary b-0 btn-rounded-20" href="javascript:;"><i class="fa fa-linkedin"></i></a>
@@ -47,6 +47,10 @@
 			</ul>
 
 			<h5>Or login with</h5>
+
+      <button class="btn btn-block btn-google-plus" ng-click="authenticate('google')">
+        <span class="ion-social-googleplus"></span>Sign in with Google
+      </button>
 
 		</div>
 
@@ -59,3 +63,11 @@
   </div>
 
 </div>
+
+<script>// <![CDATA[
+(function() {
+  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  po.src = 'https://apis.google.com/js/client:plusone.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+// ]]></script>

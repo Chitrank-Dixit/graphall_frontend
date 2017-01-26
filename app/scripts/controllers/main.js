@@ -20,14 +20,16 @@ app
         headerFixed: true,
         asideFixed: true,
         rightbarShow: false,
-        //apiUrl : 'http://127.0.0.1:8000',
-        apiUrl: 'https://api.graphall.in',
+        apiUrl : 'http://127.0.0.1:8000',
+        //apiUrl: 'https://api.graphall.in',
         // local app
-        //client_id: 'pVxBe7J4E36fYYyxisURBv3GplUFMyg49b9guxXV',
-        //client_secret: 'HMwtvPvZGhgCpfcC52mSDpcMJv6Ys1RqCtX0SKXmJfHAAnMnE7BhGLBRiawxGr83Jj5tsl2NT9YGWtTJLskSzJLrK3PBFGTX5XqnEciDmMG73FSTUUJms1XThxQbGxxt'
+        client_id: 'KRUcQy50AUZXehIWmPjwJBHWeMjTOBEcEZpamD7L',
+        client_secret: 'hp1A3nq0h3KSsI2VnuX6SXlQoUEY7ntBFGAga3GU1Yo7mxrFPQkahWm1vG84bSPGV7feziBrlejvDxtSyMiNb242dQ4ZhgwMOc0YxAeKnnW2Ip6W1Q8fNBSHgigOVfQK',
+        google_plus_client_id: '724790743603-cfa3cipn23la46p1acq0umbrdhrptkap.apps.googleusercontent.com',
+        google_plus_client_secret: 'GoAz7892aXpYxTIKlhxtyO_k'
         // server app (now on ec2 not on rds)
-        client_id: "wmNGhxclGCFcSx7VD1DYqKmyjV3ha7qExRVoMHQl",
-        client_secret: "goXbQ6i35w4cTrrpdERFwI8SL0CFHcjmvKMACgXr2fmipDG9Os3x2KjqVIK1iUtuAPYc58pzKrPuRk0uAtaKAhnS90rvbRsE123qc2R7qtpufR1rTp7MrfL1Vt5Oedhw"
+        //client_id: "wmNGhxclGCFcSx7VD1DYqKmyjV3ha7qExRVoMHQl",
+        //client_secret: "goXbQ6i35w4cTrrpdERFwI8SL0CFHcjmvKMACgXr2fmipDG9Os3x2KjqVIK1iUtuAPYc58pzKrPuRk0uAtaKAhnS90rvbRsE123qc2R7qtpufR1rTp7MrfL1Vt5Oedhw"
       }
     };
 

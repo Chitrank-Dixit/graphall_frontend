@@ -1,5 +1,5 @@
 'use strict';
-app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, user) {
+app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, user, gplus, $location, $auth, toastr) {
     $scope.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -46,7 +46,7 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
         console.log(data, data.username , data.first_name, token, data.last_name, data.email);
         var userdata = { "username": data.username, "first_name": data.first_name , "last_name":data.last_name , "email": data.email};
         $window.localStorage.setItem('userdata', JSON.stringify(userdata));
-        var tokendata = {"token": token , "refresh_token": refresh_token}
+        var tokendata = {"token": token , "refresh_token": refresh_token};
         $window.localStorage.setItem('tokendata', JSON.stringify(tokendata));
         $state.go('app.dashboard');
       }).error(function(data){
@@ -55,6 +55,7 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
     }).error(function (data) {
 
     });
+
 
 
 
@@ -77,6 +78,37 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
     //    });
     //});
 
-  }
+  };
+
+  $scope.login = function() {
+    $auth.login($scope.user)
+      .then(function() {
+        toastr.success('You have successfully signed in!');
+        $location.path('/');
+      })
+      .catch(function(error) {
+        toastr.error(error.data.message, error.status);
+      });
+  };
+
+  $scope.authenticate = function(provider) {
+    $auth.authenticate(provider)
+      .then(function(data) {
+        console.log(data);
+        toastr.success('You have successfully signed in with ' + provider + '!');
+        $location.path('/');
+      })
+      .catch(function(error) {
+        if (error.message) {
+          // Satellizer promise reject error.
+          toastr.error(error.message);
+        } else if (error.data) {
+          // HTTP response error from server
+          toastr.error(error.data.message, error.status);
+        } else {
+          toastr.error(error);
+        }
+      });
+  };
 
 });

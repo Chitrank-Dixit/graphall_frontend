@@ -62,7 +62,8 @@ var app = angular
     'wu.masonry',
     'ipsum',
     'angular-intro',
-    'dragularModule'
+    'dragularModule',
+    'satellizer'
 
   ])
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
@@ -103,7 +104,20 @@ var app = angular
     $translateProvider.useSanitizeValueStrategy(null);
   }])
 
-  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $authProvider) {
+
+
+    $authProvider.facebook({
+      clientId: '955689487890084'
+    });
+
+    $authProvider.google({
+      clientId: '724790743603-cfa3cipn23la46p1acq0umbrdhrptkap.apps.googleusercontent.com'
+    });
+
+    $authProvider.twitter({
+      clientId: '4xlIT43WajRweEilYc5VJthuU'
+    });
 
     $urlRouterProvider.otherwise('/core/login');
 

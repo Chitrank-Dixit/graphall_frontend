@@ -1,5 +1,5 @@
 'use strict';
-app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, user, gplus, $location, $auth, toastr) {
+app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, user, $location, $auth, toastr, AuthenticationFactory, Facebook) {
     $scope.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -80,35 +80,110 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
 
   };
 
-  $scope.login = function() {
-    $auth.login($scope.user)
-      .then(function() {
-        toastr.success('You have successfully signed in!');
-        $location.path('/');
-      })
-      .catch(function(error) {
-        toastr.error(error.data.message, error.status);
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '955689487890084',
+      status: true,
+      cookie: true,
+      xfbml: true,
+      version: 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+
+  $scope.fbLogin = function() {
+    // facebook login
+    Facebook.login().then(function(response){
+      var name=response.data.name.split(" ");
+      var temp_mixpanel={
+        "FacebookID":$rootScope.fbId,
+        "EmailID":"",
+        "FirstName":name[0],
+        "LastName":name[1]
+      };
+
+      console.log('facebook Login');
+      var temp={
+        "social_id": response.authResponse.userID,
+        "backend": "facebook",// or "google-plus"
+        "token": response.authResponse.accessToken
+      };
+
+
+      var graphallAuth =  AuthenticationFactory.graphallAuth(temp);
+      return graphallAuth;
+    })
+      .then(function(response){
+        $state.go('root');
+        vm.useraccessToken=response.data.access_token;
+        if(API.isLocalStorageSupported) {
+          window.localStorage.setItem("graphall_auth",JSON.stringify({"access_token":response.data.access_token}));
+        }
+        vm.existenceUserDetails();
       });
   };
 
-  $scope.authenticate = function(provider) {
-    $auth.authenticate(provider)
-      .then(function(data) {
-        console.log(data);
-        toastr.success('You have successfully signed in with ' + provider + '!');
-        $location.path('/');
-      })
-      .catch(function(error) {
-        if (error.message) {
-          // Satellizer promise reject error.
-          toastr.error(error.message);
-        } else if (error.data) {
-          // HTTP response error from server
-          toastr.error(error.data.message, error.status);
-        } else {
-          toastr.error(error);
-        }
-      });
+
+
+  // This flag we use to show or hide the button in our HTML.
+  $scope.signedIn = false;
+
+  // Here we do the authentication processing and error handling.
+  // Note that authResult is a JSON object.
+  $scope.processAuth = function(authResult) {
+    // Do a check if authentication has been successful.
+    if(authResult['access_token']) {
+      // Successful sign in.
+      $scope.signedIn = true;
+
+      //     ...
+      // Do some work [1].
+      //     ...
+    } else if(authResult['error']) {
+      // Error while signing in.
+      $scope.signedIn = false;
+
+      // Report error.
+    }
   };
+
+  // When callback is received, we need to process authentication.
+  $scope.signInCallback = function(authResult) {
+    $scope.$apply(function() {
+      $scope.processAuth(authResult);
+      console.log(authResult);
+    });
+  };
+
+  // Render the sign in button.
+  $scope.renderSignInButton = function() {
+    gapi.signin.render('signInButton',
+      {
+        'callback': $scope.signInCallback, // Function handling the callback.
+        'clientid': '724790743603-cfa3cipn23la46p1acq0umbrdhrptkap.apps.googleusercontent.com', // CLIENT_ID from developer console which has been explained earlier.
+        'requestvisibleactions': 'http://schemas.google.com/AddActivity', // Visible actions, scope and cookie policy wont be described now,
+                                                                          // as their explanation is available in Google+ API Documentation.
+        'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
+        'cookiepolicy': 'single_host_origin'
+      }
+    );
+  };
+
+  // Start function in this example only renders the sign in button.
+  $scope.start = function() {
+    $scope.renderSignInButton();
+  };
+
+  // Call start function on load.
+  $scope.start();
+
 
 });

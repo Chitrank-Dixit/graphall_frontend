@@ -200,13 +200,16 @@
 
     <!-- build:js({.tmp,app}) scripts/app.js -->
     <!-- Google Sign in dependency -->
-    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <script src="scripts/app.js"></script>
     <script src="scripts/factories/oauth.js"></script>
     <script src="scripts/factories/user.js"></script>
     <script src="scripts/factories/analytics.js"></script>
-    <script src="scripts/factories/gplus.js"></script>
+    <script src="scripts/factories/authentication_services.js"></script>
+    <script src="scripts/factories/facebook.js"></script>
+    <!--<script src="scripts/factories/gplus.js"></script>-->
+    <script src="scripts/services/userService.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/directives/navcollapse.js"></script>
     <script src="scripts/directives/slimscroll.js"></script>
@@ -336,5 +339,13 @@
     <script src="scripts/controllers/material/tooltip.js"></script>
     <script src="scripts/controllers/material/whiteframe.js"></script>
     <!-- endbuild -->
-</body>
+    <script>// <![CDATA[
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/client:plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+    // ]]></script>
+
+  </body>
 </html>

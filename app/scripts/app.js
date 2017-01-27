@@ -66,7 +66,7 @@ var app = angular
     'satellizer'
 
   ])
-  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
+  .run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$on('$stateChangeSuccess', function(event, toState) {
@@ -85,6 +85,10 @@ var app = angular
       });
       $rootScope.containerClass = toState.containerClass;
     });
+
+
+
+
   }])
 
   .config(['uiSelectConfig', function (uiSelectConfig) {
@@ -103,6 +107,11 @@ var app = angular
     $translateProvider.preferredLanguage('en');
     $translateProvider.useSanitizeValueStrategy(null);
   }])
+  //.config(['socialProvider', function(socialProvider) {
+  //  socialProvider.setGoogleKey("724790743603-cfa3cipn23la46p1acq0umbrdhrptkap.apps.googleusercontent.com");
+  //  //socialProvider.setLinkedInKey("YOUR LINKEDIN CLIENT ID");
+  //  socialProvider.setFbKey({appId: "955689487890084", apiVersion: "API VERSION"});
+  //}])
 
   .config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $authProvider) {
 

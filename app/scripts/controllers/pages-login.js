@@ -1,5 +1,5 @@
 'use strict';
-app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, user, $location, $auth, toastr, AuthenticationFactory, Facebook) {
+app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, user, $location, $auth, toastr, AuthenticationFactory, Facebook,facebookService) {
     $scope.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -80,58 +80,22 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
 
   };
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: '955689487890084',
-      status: true,
-      cookie: true,
-      xfbml: true,
-      version: 'v2.4'
-    });
-  };
 
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
+  // Facebook sign in starts
 
   $scope.fbLogin = function() {
-    // facebook login
-    Facebook.login().then(function(response){
-      var name=response.data.name.split(" ");
-      var temp_mixpanel={
-        "FacebookID":$rootScope.fbId,
-        "EmailID":"",
-        "FirstName":name[0],
-        "LastName":name[1]
-      };
-
-      console.log('facebook Login');
-      var temp={
-        "social_id": response.authResponse.userID,
-        "backend": "facebook",// or "google-plus"
-        "token": response.authResponse.accessToken
-      };
-
-
-      var graphallAuth =  AuthenticationFactory.graphallAuth(temp);
-      return graphallAuth;
-    })
-      .then(function(response){
-        $state.go('root');
-        vm.useraccessToken=response.data.access_token;
-        if(API.isLocalStorageSupported) {
-          window.localStorage.setItem("graphall_auth",JSON.stringify({"access_token":response.data.access_token}));
-        }
-        vm.existenceUserDetails();
-      });
+    FB.login()
+      .then(function(response) {
+        $scope.last_name = response.last_name;
+      }
+    );
   };
 
 
+
+
+  // Google Sign in Auth Starts
 
   // This flag we use to show or hide the button in our HTML.
   $scope.signedIn = false;

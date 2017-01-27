@@ -87,6 +87,23 @@ var app = angular
     });
 
 
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '955689487890084',
+        status: true,
+        cookie: true,
+        xfbml: true,
+        version: 'v2.4'
+      });
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
 
   }])
@@ -116,17 +133,7 @@ var app = angular
   .config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $authProvider) {
 
 
-    $authProvider.facebook({
-      clientId: '955689487890084'
-    });
 
-    $authProvider.google({
-      clientId: '724790743603-cfa3cipn23la46p1acq0umbrdhrptkap.apps.googleusercontent.com'
-    });
-
-    $authProvider.twitter({
-      clientId: '4xlIT43WajRweEilYc5VJthuU'
-    });
 
     $urlRouterProvider.otherwise('/core/login');
 

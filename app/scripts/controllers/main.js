@@ -23,8 +23,8 @@ app
         apiUrl : 'http://127.0.0.1:8000',
         //apiUrl: 'https://api.graphall.in',
         // local app
-        client_id: 'KRUcQy50AUZXehIWmPjwJBHWeMjTOBEcEZpamD7L',
-        client_secret: 'hp1A3nq0h3KSsI2VnuX6SXlQoUEY7ntBFGAga3GU1Yo7mxrFPQkahWm1vG84bSPGV7feziBrlejvDxtSyMiNb242dQ4ZhgwMOc0YxAeKnnW2Ip6W1Q8fNBSHgigOVfQK',
+        client_id: 'JycIRHsxEvW8Ao9SGykJIojftZtdEvkdkjUbyOa7',
+        client_secret: 'm8LwNKbzt8RJAcxCtlgLMCG93N6pz0yYa4XIjSXT7NiO1mMDvkx33QCygq7bqmFrpJbJBLZoavGS79YO0ksIxAOdRxGpjjENITmpHfwHZpuaDnU4jn1PItJtot3z4I6o',
         google_plus_client_id: '724790743603-cfa3cipn23la46p1acq0umbrdhrptkap.apps.googleusercontent.com',
         google_plus_client_secret: 'GoAz7892aXpYxTIKlhxtyO_k'
         // server app (now on ec2 not on rds)

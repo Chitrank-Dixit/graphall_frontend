@@ -18,7 +18,17 @@ app.factory('oauth', function ($http, $q) {
         },
         data: authData
       });
+    },
+
+    convert_social_token : function(url, data) {
+      return $http({
+        method: 'POST',
+        url: url,
+        data: data,
+        headers: { "Content-Type": "application/json"}
+      });
     }
+
   }
 
 });

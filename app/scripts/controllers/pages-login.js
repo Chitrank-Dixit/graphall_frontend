@@ -106,7 +106,20 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
     // Do a check if authentication has been successful.
     if(authResult['access_token']) {
       // Successful sign in.
+      var data = {
+        "grant_type": "convert_token",
+        "client_id": $scope.main.settings.client_id,
+        "client_secret": $scope.main.settings.client_secret,
+        "backend": "facebook",
+        "token": authResult["access_token"]
+      };
+      oauth.convert_social_token($scope.main.settings.apiUrl+"/auth/convert-token/", data).success(function(data){
+        $state.go("app.dashboard");
+      }).error(function(data){
+
+      });
       $scope.signedIn = true;
+
 
       //     ...
       // Do some work [1].
@@ -123,6 +136,18 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
   $scope.signInCallback = function(authResult) {
     $scope.$apply(function() {
       $scope.processAuth(authResult);
+      var data = {
+        "grant_type": "convert_token",
+        "client_id": $scope.main.settings.client_id,
+        "client_secret": $scope.main.settings.client_secret,
+        "backend": "google-oauth2",
+        "token": authResult["access_token"]
+      };
+      oauth.convert_social_token($scope.main.settings.apiUrl+"/auth/convert-token/", data).success(function(data){
+        $state.go("app.dashboard");
+      }).error(function(data){
+
+      });
       console.log(authResult);
     });
   };
@@ -132,7 +157,7 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
     gapi.signin.render('signInButton',
       {
         'callback': $scope.signInCallback, // Function handling the callback.
-        'clientid': '724790743603-cfa3cipn23la46p1acq0umbrdhrptkap.apps.googleusercontent.com', // CLIENT_ID from developer console which has been explained earlier.
+        'clientid': $scope.main.settings.google_plus_client_id, // CLIENT_ID from developer console which has been explained earlier.
         'requestvisibleactions': 'http://schemas.google.com/AddActivity', // Visible actions, scope and cookie policy wont be described now,
                                                                           // as their explanation is available in Google+ API Documentation.
         'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',

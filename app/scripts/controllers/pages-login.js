@@ -88,11 +88,24 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
     FB.login()
       .then(function(response) {
         $scope.last_name = response.last_name;
+
+        var data = {
+          "grant_type": "convert_token",
+          "client_id": $scope.main.settings.client_id,
+          "client_secret": $scope.main.settings.client_secret,
+          "backend": "facebook",
+          "token": response.access_token
+        };
+        oauth.convert_social_token($scope.main.settings.apiUrl+"/auth/convert-token/", data).success(function(data){
+          $state.go("app.dashboard");
+        }).error(function(data){
+
+        });
       }
     );
   };
 
-
+  // facebook sign in ends
 
 
   // Google Sign in Auth Starts
@@ -106,18 +119,7 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
     // Do a check if authentication has been successful.
     if(authResult['access_token']) {
       // Successful sign in.
-      var data = {
-        "grant_type": "convert_token",
-        "client_id": $scope.main.settings.client_id,
-        "client_secret": $scope.main.settings.client_secret,
-        "backend": "facebook",
-        "token": authResult["access_token"]
-      };
-      oauth.convert_social_token($scope.main.settings.apiUrl+"/auth/convert-token/", data).success(function(data){
-        $state.go("app.dashboard");
-      }).error(function(data){
 
-      });
       $scope.signedIn = true;
 
 
@@ -207,6 +209,6 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $window, oauth, use
   // TODO: This way we can signout
   // gapi.auth.signOut();
 
-
+  // google sign in ends
 
 });
